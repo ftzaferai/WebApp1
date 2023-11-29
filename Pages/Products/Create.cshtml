@@ -1,0 +1,52 @@
+@page
+@model PapaLuiPizzaria.Pages.Products.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Product.ProductID" class="control-label"></label>
+                <input asp-for="Product.ProductID" class="form-control" />
+                <span asp-validation-for="Product.ProductID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Title" class="control-label"></label>
+                <input asp-for="Product.Title" class="form-control" />
+                <span asp-validation-for="Product.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Credits" class="control-label"></label>
+                <input asp-for="Product.Credits" class="form-control" />
+                <span asp-validation-for="Product.Credits" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Store" class="control-label"></label>
+                <select asp-for="Product.StoreID" class="form-control"
+                     asp-items="@Model.StoreNameSL">
+                    <option value="">-- Select Store --</option>
+                </select>
+                <span asp-validation-for="Product.StoreID" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

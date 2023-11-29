@@ -1,0 +1,76 @@
+@page
+@model PapaLuiPizzaria.Pages.Deliveries.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Delivery</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Delivery.ID" />
+            <div class="form-group">
+                <label asp-for="Delivery.LastName" class="control-label"></label>
+                <input asp-for="Delivery.LastName" class="form-control" />
+                <span asp-validation-for="Delivery.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Delivery.FirstMidName" class="control-label"></label>
+                <input asp-for="Delivery.FirstMidName" class="form-control" />
+                <span asp-validation-for="Delivery.FirstMidName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Delivery.HireDate" class="control-label"></label>
+                <input asp-for="Delivery.HireDate" class="form-control" />
+                <span asp-validation-for="Delivery.HireDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Delivery.StoreAssignment.Location" class="control-label"></label>
+                <input asp-for="Delivery.StoreAssignment.Location" class="form-control" />
+                <span asp-validation-for="Delivery.StoreAssignment.Location" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <div class="table">
+                    <table>
+                        <tr>
+                            @{
+                                int cnt = 0;
+
+                                foreach (var product in Model.AssignedProductDataList)
+                                {
+                                    if (cnt++ % 3 == 0)
+                                    {
+                                        @:</tr><tr>
+                                    }
+                                    @:<td>
+                                        <input type="checkbox"
+                                               name="selectedProducts"
+                                               value="@product.ProductID"
+                                               @(Html.Raw(product.Assigned ? "checked=\"checked\"" : "")) />
+                                               @product.ProductID @:  @product.Title
+                                    @:</td>
+                                }
+                                @:</tr>
+                            }
+                    </table>
+                </div>
+            </div>            
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
